@@ -1,0 +1,49 @@
+{
+  "levels": [
+    { "name": "Money Newbie", "min_points": 0 },
+    { "name": "Saver", "min_points": 50 },
+    { "name": "Budgeter", "min_points": 120 },
+    { "name": "Smart Spender", "min_points": 220 },
+    { "name": "Investor in Training", "min_points": 350 },
+    { "name": "Financial Whiz", "min_points": 500 }
+  ],
+  "points": {
+    "lesson_complete": 10,
+    "quiz_correct": 5,
+    "reflection_complete": 5,
+    "course_complete_bonus": 25
+  },
+  "badges": [
+    { "id": "first_step", "name": "First Step", "description": "Complete your very first lesson" },
+    { "id": "course_crusher", "name": "Course Crusher", "description": "Complete an entire course" },
+    { "id": "quiz_master", "name": "Quiz Master", "description": "Answer 10 quiz questions correctly" },
+    { "id": "all_rounder", "name": "All-Rounder", "description": "Complete at least one lesson in every course" },
+    { "id": "streak_starter", "name": "Streak Starter", "description": "Complete lessons on 3 different days" }
+  ],
+  "lesson_quizzes": {
+    "what-is-money": { "type": "mc", "question": "Why did people start using money instead of just trading items directly?", "options": ["Because barter made it hard to find someone who wanted exactly what you had", "Because money is shinier than goats", "Because trading items was illegal", "Because banks invented money first"], "correct_index": 0 },
+    "earning-vs-spending": { "type": "reflection", "question": "What's one question you could ask yourself before spending money?" },
+    "needs-vs-wants": { "type": "mc", "question": "Which of these is a 'need'?", "options": ["A new video game", "Basic food and water", "The newest sneakers", "A toy collection"], "correct_index": 1 },
+    "where-money-goes": { "type": "reflection", "question": "Why might it be safer to keep money in a bank instead of under your mattress?" },
+    "comparing-prices": { "type": "mc", "question": "If a 10-pack of pencils costs $4 and a 5-pack costs $2.50, which is the better deal per pencil?", "options": ["The 10-pack ($0.40 each)", "The 5-pack ($0.50 each)", "They're the same", "Can't tell without more info"], "correct_index": 0 },
+
+    "why-save": { "type": "reflection", "question": "What's one reason saving money could help you in the future?" },
+    "savings-goal": { "type": "mc", "question": "If you wanted to save $60 in 6 months, how much would you need to save each month?", "options": ["$5", "$10", "$15", "$20"], "correct_index": 1 },
+    "piggybank-vs-account": { "type": "mc", "question": "What's an advantage a savings account has over a piggy bank?", "options": ["It can grow your money with interest", "It's louder when you shake it", "It's always pink", "It can hold less money"], "correct_index": 0 },
+    "what-is-interest": { "type": "mc", "question": "If you save $200 at a 5% yearly interest rate, roughly how much extra money would you earn after one year?", "options": ["$1", "$5", "$10", "$50"], "correct_index": 2 },
+    "compound-interest": { "type": "reflection", "question": "Why is compound interest often compared to a snowball rolling downhill?" },
+    "saving-for-something-big": { "type": "mc", "question": "At $10 saved per week, how many weeks would it take to save $120?", "options": ["10 weeks", "12 weeks", "15 weeks", "20 weeks"], "correct_index": 1 },
+
+    "what-is-a-budget": { "type": "reflection", "question": "Why might having a budget help you avoid running out of money unexpectedly?" },
+    "three-buckets": { "type": "mc", "question": "If you got $20 and used a 50/40/10 split (spend/save/share), how much would go to saving?", "options": ["$2", "$8", "$10", "$15"], "correct_index": 1 },
+    "tracking-your-money": { "type": "reflection", "question": "What's one simple way you could track your spending this week?" },
+    "trade-offs": { "type": "reflection", "question": "Describe a trade-off you've had to make with your own money or time." },
+    "planning-a-purchase": { "type": "reflection", "question": "What's something you'd like to save up for, and roughly how long do you think it would take?" },
+
+    "what-is-investing": { "type": "mc", "question": "What's the main difference between investing and simply saving money?", "options": ["Investing always loses money", "Investing has more growth potential but more risk", "Saving and investing are exactly the same", "Saving is riskier than investing"], "correct_index": 1 },
+    "saving-vs-investing": { "type": "reflection", "question": "Why might someone choose to save money instead of invest it, even though investing could grow it faster?" },
+    "what-is-stock-market": { "type": "mc", "question": "In simple terms, what is a stock?", "options": ["A type of bank account", "A small share of ownership in a company", "A type of paper money", "A government tax form"], "correct_index": 1 },
+    "risk-and-time": { "type": "reflection", "question": "Why might starting to save at age 10 be more powerful than starting at age 30, even with smaller amounts?" },
+    "money-toolkit-recap": { "type": "reflection", "question": "Out of everything you've learned across these courses, what's one idea you want to remember most?" }
+  }
+}

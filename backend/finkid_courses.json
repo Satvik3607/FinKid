@@ -1,0 +1,208 @@
+{
+  "courses": [
+    {
+      "id": "money-basics",
+      "title": "Money Basics",
+      "description": "Start here! Learn what money actually is, where it comes from, and how to think about spending it wisely.",
+      "level": "Beginner",
+      "order": 1,
+      "lessons": [
+        {
+          "id": "what-is-money",
+          "title": "What is Money, Really?",
+          "order": 1,
+          "content": "Money is something people agree to use to trade for things they want, instead of swapping items directly. Long ago, people used a system called {{term:barter|trading one item or service directly for another, without using money}} — like trading a chicken for a pair of shoes. But that was tricky: what if the shoe-maker didn't want a chicken? Money solved this problem. It's a tool everyone agrees has value, so you can use it to buy almost anything. Today money exists as paper bills, coins, and even just numbers in a bank's computer system — that's called {{term:digital currency|money that only exists electronically, like the balance shown in a bank app, with no physical paper or coin form}}.",
+          "key_terms": ["barter", "digital currency"],
+          "check_question": "Why did people start using money instead of just trading items directly?"
+        },
+        {
+          "id": "earning-vs-spending",
+          "title": "Earning vs. Spending",
+          "order": 2,
+          "content": "Earning money means getting paid for doing work — like a chore, a job, or selling something you made. Spending means using money to get something you want or need. Every dollar you have can only be used once: if you spend it, it's gone (unless you earn more). A useful habit is asking yourself before spending: 'Did I earn this, and is this the best use of it?' This simple pause is sometimes called {{term:mindful spending|thinking carefully about a purchase before making it, instead of buying something automatically or impulsively}}.",
+          "key_terms": ["mindful spending"],
+          "check_question": "What's one question you could ask yourself before spending money?"
+        },
+        {
+          "id": "needs-vs-wants",
+          "title": "Needs vs. Wants",
+          "order": 3,
+          "content": "A {{term:need|something essential for living, like food, water, shelter, or basic clothing}} is something you truly require to live safely and healthily. A {{term:want|something nice to have but not essential for survival, like a new video game or candy}} is something that would be fun or nice, but you could live without it. Both are okay to spend money on — the key is knowing the difference, so you can make sure your needs are covered before spending heavily on wants.",
+          "key_terms": ["need", "want"],
+          "check_question": "Can you think of one need and one want from your own life?"
+        },
+        {
+          "id": "where-money-goes",
+          "title": "Where Does Money Go? (Banks 101)",
+          "order": 4,
+          "content": "A {{term:bank|a safe place where people store their money and can also borrow money or earn interest on savings}} is like a super-secure storage place for money. When you put money in a bank account, it's protected, and the bank may even pay you a little extra over time for keeping it there — this is called {{term:interest|extra money a bank pays you for keeping your money saved with them, calculated as a percentage of your balance}}. Banks also keep records so you always know exactly how much money you have, without needing to carry it all around as cash.",
+          "key_terms": ["bank", "interest"],
+          "check_question": "Why might it be safer to keep money in a bank instead of under your mattress?"
+        },
+        {
+          "id": "comparing-prices",
+          "title": "Counting & Comparing Prices",
+          "order": 5,
+          "content": "Smart spenders compare prices before buying. If two stores sell the same toy, but one costs more, that's an easy choice. But sometimes it's trickier — like comparing a big bag of chips for $5 versus a small bag for $2. To figure out which is the better deal, you can calculate the {{term:unit price|the cost of a single unit of an item, like price per ounce or price per piece, used to compare deals fairly}} — basically, the price per amount. The lower the unit price, the better the deal, even if the total price looks bigger at first.",
+          "key_terms": ["unit price"],
+          "check_question": "If a 10-pack of pencils costs $4 and a 5-pack costs $2.50, which is the better deal per pencil?"
+        }
+      ]
+    },
+    {
+      "id": "power-of-saving",
+      "title": "The Power of Saving",
+      "description": "Discover why saving matters, how interest can grow your money over time, and how to set real savings goals.",
+      "level": "Beginner",
+      "order": 2,
+      "lessons": [
+        {
+          "id": "why-save",
+          "title": "Why Save at All?",
+          "order": 1,
+          "content": "Saving means setting money aside instead of spending it right away. Why bother? Because saving gives you options: money for emergencies, money for something big you want later, and a feeling of security. People who save regularly often build something called an {{term:emergency fund|money set aside specifically for unexpected situations, like a sudden expense or problem}} — a safety net for surprises life throws at you.",
+          "key_terms": ["emergency fund"],
+          "check_question": "What's one reason saving money could help you in the future?"
+        },
+        {
+          "id": "savings-goal",
+          "title": "Setting a Savings Goal",
+          "order": 2,
+          "content": "A {{term:savings goal|a specific amount of money you're trying to save, usually for a particular reason or by a certain date}} gives your saving a clear purpose. Instead of just saving 'in general,' you might decide: 'I want to save $50 for a new game by my birthday.' Having a clear number and a clear reason makes it much easier to stay motivated and track your progress.",
+          "key_terms": ["savings goal"],
+          "check_question": "If you wanted to save $60 in 6 months, how much would you need to save each month?"
+        },
+        {
+          "id": "piggybank-vs-account",
+          "title": "The Piggy Bank vs. The Bank Account",
+          "order": 3,
+          "content": "A piggy bank is a fun way to start saving, but it has limits: it can be lost, broken into, or it just sits there without growing. A real {{term:savings account|a bank account designed specifically for storing money you don't plan to spend right away, which usually earns interest over time}} keeps your money safe AND can grow slightly over time thanks to interest. As you get older, moving your savings into a real bank account is usually the smarter long-term choice.",
+          "key_terms": ["savings account"],
+          "check_question": "Name one advantage a savings account has over a piggy bank."
+        },
+        {
+          "id": "what-is-interest",
+          "title": "What is Interest? (The 'Free Money' Idea)",
+          "order": 4,
+          "content": "Interest is like a small 'thank you' payment for letting a bank (or someone else) use your money for a while. If you save $100 and the bank offers a {{term:interest rate|the percentage used to calculate how much interest you earn or owe, usually shown per year}} of 5% per year, after one year, you'd have $105 — the extra $5 came from nowhere except just leaving your money saved! This is sometimes nicknamed 'free money,' though it usually takes time to add up.",
+          "key_terms": ["interest rate"],
+          "check_question": "If you save $200 at a 5% yearly interest rate, roughly how much extra money would you earn after one year?"
+        },
+        {
+          "id": "compound-interest",
+          "title": "Compound Interest — The Snowball Effect",
+          "order": 5,
+          "content": "Here's where saving gets really powerful. {{term:compound interest|interest calculated not just on your original savings, but also on the interest you've already earned, causing your money to grow faster over time}} means your interest starts earning its OWN interest. Imagine rolling a small snowball down a snowy hill — it picks up more snow as it rolls, getting bigger and bigger, faster and faster. That's exactly how compound interest works with your money: small at first, but it builds momentum the longer you leave it saved.",
+          "key_terms": ["compound interest"],
+          "check_question": "Why is compound interest often compared to a snowball rolling downhill?"
+        },
+        {
+          "id": "saving-for-something-big",
+          "title": "Saving for Something Big (Practice Scenario)",
+          "order": 6,
+          "content": "Let's practice! Imagine you want a $120 bike. You currently save $10 a week from chores and gifts. Using simple division, you can calculate how many weeks you'd need to reach your goal. This kind of planning is called {{term:financial planning|the process of figuring out how to manage your money to reach a specific goal}} — and it's a skill that works for goals big or small, now and for the rest of your life.",
+          "key_terms": ["financial planning"],
+          "check_question": "At $10 saved per week, how many weeks would it take to save $120?"
+        }
+      ]
+    },
+    {
+      "id": "budgeting-like-a-pro",
+      "title": "Budgeting Like a Pro",
+      "description": "Learn how to plan your money with a simple, flexible system that helps you spend, save, and share wisely.",
+      "level": "Intermediate",
+      "order": 3,
+      "lessons": [
+        {
+          "id": "what-is-a-budget",
+          "title": "What is a Budget?",
+          "order": 1,
+          "content": "A {{term:budget|a plan for how you will spend and save your money over a certain period of time, like a week or a month}} is simply a plan for your money. Instead of spending randomly and wondering where it all went, a budget helps you decide ahead of time: 'This much goes to saving, this much to spending, this much to sharing.' It's like a map for your money instead of wandering without one.",
+          "key_terms": ["budget"],
+          "check_question": "Why might having a budget help you avoid running out of money unexpectedly?"
+        },
+        {
+          "id": "three-buckets",
+          "title": "The 3 Buckets: Spend, Save, Share",
+          "order": 2,
+          "content": "A simple way to budget is splitting money into three buckets the moment you get it: Spend (for things you want now), Save (for future goals), and Share (giving to others, like charity or gifts). Many people use an {{term:allocation|deciding what portion or percentage of your money goes toward each category or purpose}} like 50% spend, 40% save, 10% share — but you can adjust the percentages to fit what matters most to you.",
+          "key_terms": ["allocation"],
+          "check_question": "If you got $20, and used a 50/40/10 split, how much would go to each bucket?"
+        },
+        {
+          "id": "tracking-your-money",
+          "title": "Tracking Your Money",
+          "order": 3,
+          "content": "A budget only works if you actually check it! {{term:tracking|regularly writing down or recording how much money you earn and spend, to compare against your plan}} means writing down what comes in and what goes out — even using a simple notebook or app. Over time, tracking shows you patterns: maybe you're spending more on snacks than you realized, which helps you make better choices going forward.",
+          "key_terms": ["tracking"],
+          "check_question": "What's one simple way you could track your spending this week?"
+        },
+        {
+          "id": "trade-offs",
+          "title": "Making Choices: Trade-Offs",
+          "order": 4,
+          "content": "Every spending choice involves a {{term:trade-off|giving up one thing in order to get something else, since you usually can't have everything at once}} — if you spend your money on one thing, you can't spend that same money on something else. Thinking about trade-offs helps you choose what truly matters most to you, rather than spending on whatever's in front of you first.",
+          "key_terms": ["trade-off"],
+          "check_question": "Describe a trade-off you've had to make with your own money or time."
+        },
+        {
+          "id": "planning-a-purchase",
+          "title": "Planning for a Purchase (Mini Project)",
+          "order": 5,
+          "content": "Let's apply everything! Pick something you'd like to buy. Figure out its price, how much you currently have saved, how much you earn or receive regularly, and roughly how long it'll take to save enough. This full process — combining goals, tracking, and trade-offs — is the real-life version of what professionals call {{term:budget planning|combining your income, expenses, and goals into a clear, realistic plan for reaching a purchase or savings target}}.",
+          "key_terms": ["budget planning"],
+          "check_question": "What's something you'd like to save up for, and roughly how long do you think it would take?"
+        }
+      ]
+    },
+    {
+      "id": "investing-intro",
+      "title": "Investing & Growing Money (Intro)",
+      "description": "A gentle, beginner-friendly introduction to what investing means — perfect for curious older kids and teens.",
+      "level": "Advanced",
+      "order": 4,
+      "lessons": [
+        {
+          "id": "what-is-investing",
+          "title": "What Does 'Investing' Mean?",
+          "order": 1,
+          "content": "{{term:investing|putting your money into something with the goal of growing it over time, usually involving some level of risk}} means using your money to try to make more money over time — different from just saving it in a safe spot. People invest in things like companies, real estate, or other assets, hoping their value increases. Investing usually involves more risk than saving, but also more potential growth over the long run.",
+          "key_terms": ["investing"],
+          "check_question": "What's the main difference between investing and simply saving money?"
+        },
+        {
+          "id": "saving-vs-investing",
+          "title": "Saving vs. Investing — What's the Difference?",
+          "order": 2,
+          "content": "Saving is about safety and certainty — your money stays put and grows slowly and predictably. Investing is about growth potential, but with {{term:risk|the chance that an investment could lose value instead of gaining it}} — meaning your money could grow a lot, a little, or even shrink. Generally, money you'll need soon should be saved, while money you won't need for many years could be considered for investing.",
+          "key_terms": ["risk"],
+          "check_question": "Why might someone choose to save money instead of invest it, even though investing could grow it faster?"
+        },
+        {
+          "id": "what-is-stock-market",
+          "title": "What is the Stock Market? (Very Basic Idea)",
+          "order": 3,
+          "content": "Companies sometimes sell tiny pieces of ownership in themselves, called {{term:stocks|small shares of ownership in a company that can be bought and sold}}, to raise money to grow their business. People can buy these stocks, and if the company does well, the stock's value can increase. The {{term:stock market|a place where stocks are bought and sold by investors}} is simply where all this buying and selling happens — today, almost entirely online.",
+          "key_terms": ["stocks", "stock market"],
+          "check_question": "In simple terms, what is a stock?"
+        },
+        {
+          "id": "risk-and-time",
+          "title": "Risk and Time: Why Starting Early Helps",
+          "order": 4,
+          "content": "The earlier someone starts saving or investing, the more time {{term:compound growth|the snowball effect where your money — and its earnings — keep growing on top of each other over a longer period of time}} has to work in their favor. Even small amounts, started early, can grow significantly larger than bigger amounts started later — simply because time lets compounding do more work.",
+          "key_terms": ["compound growth"],
+          "check_question": "Why might starting to save at age 10 be more powerful than starting at age 30, even with smaller amounts?"
+        },
+        {
+          "id": "money-toolkit-recap",
+          "title": "Big Idea Recap: Your Money Toolkit",
+          "order": 5,
+          "content": "You've now learned the building blocks of {{term:financial literacy|the knowledge and skills needed to make smart decisions about money}}: what money is, how to save it, how to budget it, and the basic idea of investing. These tools don't make decisions for you — but they help you make smarter, more confident choices with your own money for the rest of your life.",
+          "key_terms": ["financial literacy"],
+          "check_question": "Out of everything you've learned across these courses, what's one idea you want to remember most?"
+        }
+      ]
+    }
+  ]
+}

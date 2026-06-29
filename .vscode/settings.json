@@ -1,0 +1,9 @@
+{
+  "python.defaultInterpreterPath": "d:/FinKid/FinKid/backend/.venv/Scripts/python.exe",
+  "python.analysis.extraPaths": [
+    "d:/FinKid/FinKid/backend/.venv/Lib/site-packages"
+  ],
+  "python.autoComplete.extraPaths": [
+    "d:/FinKid/FinKid/backend/.venv/Lib/site-packages"
+  ]
+}

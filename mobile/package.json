@@ -1,0 +1,23 @@
+{
+  "name": "finkid-mobile",
+  "version": "1.0.0",
+  "scripts": {
+    "start": "expo start",
+    "android": "expo start --android",
+    "ios": "expo start --ios",
+    "web": "expo start --web",
+    "ts.check": "tsc"
+  },
+  "dependencies": {
+    "@supabase/supabase-js": "^2.39.8",
+    "expo": "~50.0.14",
+    "expo-status-bar": "~1.11.1",
+    "react": "18.2.0",
+    "react-native": "0.73.6",
+    "lucide-react-native": "^0.354.0"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.20.0"
+  },
+  "private": true
+}

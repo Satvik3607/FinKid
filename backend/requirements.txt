@@ -1,0 +1,17 @@
+fastapi
+uvicorn
+pydantic
+pydantic-settings
+supabase
+pinecone
+google-generativeai
+python-dotenv
+python-multipart
+pypdf
+pandas
+python-jose[cryptography]
+email-validator
+requests
+sentence-transformers
+types-requests
+types-python-jose
