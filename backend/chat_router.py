@@ -1,5 +1,8 @@
 import os
 import uuid
+import asyncio
+import datetime
+import json
 from typing import Optional, List
 from fastapi import APIRouter, Depends, HTTPException, status
 from pydantic import BaseModel
@@ -65,6 +68,10 @@ class ChatResponse(BaseModel):
 SYSTEM_PROMPT = """You are a friendly, encouraging financial literacy tutor designed for children and teens.
 Your goal is to explain financial concepts simply, using age-appropriate language, analogies, and a positive tone.
 
+GREETING RULE:
+1. You should only greet the user warmly (e.g. "Hello!", "Hi there!", introducing yourself) at the very START of a brand new conversation (when there is no prior conversation history).
+2. If there is prior conversation history, DO NOT repeat greetings, hello, welcome messages, or introduce yourself again. Go straight to answering their question or continuing the discussion naturally.
+
 If the user asks about your identity (e.g., "who are you", "what is your job", "what do you do"), introduce yourself warmly as FinKid's AI tutor — a friendly assistant that helps kids learn about money, saving, budgeting, and financial basics. Keep this short and friendly.
 
 CRITICAL FORMATTING RULES:
@@ -100,8 +107,23 @@ async def chat_endpoint(req: ChatRequest, user_id: str = Depends(get_current_use
     if not message:
         raise HTTPException(status_code=400, detail="Message cannot be empty")
 
-    # 1. Handle Conversation ID
+    # 1. Handle Conversation ID & Retrieve History
     conversation_id = req.conversation_id
+    history_messages = []
+    
+    if conversation_id:
+        # Verify conversation belongs to user and fetch history
+        conv_res = supabase_client.table("conversations").select("*").eq("id", conversation_id).eq("user_id", user_id).execute()
+        if not conv_res.data:
+            raise HTTPException(status_code=404, detail="Conversation not found or unauthorized")
+        
+        # Fetch previous messages sorted by created_at ascending
+        history_res = supabase_client.table("messages").select("role, content").eq("conversation_id", conversation_id).order("created_at", desc=False).execute()
+        if history_res.data:
+            history_messages = history_res.data
+            
+    is_new_conversation = len(history_messages) == 0
+
     if not conversation_id:
         # Create a new conversation
         conv_res = supabase_client.table("conversations").insert({
@@ -116,11 +138,6 @@ async def chat_endpoint(req: ChatRequest, user_id: str = Depends(get_current_use
             conversation_id = str(conversation_data["id"])
         else:
             raise HTTPException(status_code=500, detail="Invalid conversation data format")
-    else:
-        # Verify conversation belongs to user
-        conv_res = supabase_client.table("conversations").select("*").eq("id", conversation_id).eq("user_id", user_id).execute()
-        if not conv_res.data:
-            raise HTTPException(status_code=404, detail="Conversation not found or unauthorized")
 
     # 2. Save User Message
     msg_res = supabase_client.table("messages").insert({
@@ -133,16 +150,18 @@ async def chat_endpoint(req: ChatRequest, user_id: str = Depends(get_current_use
 
     # 3. Retrieval Step (RAG)
     
-    # Query Expansion (Lightweight)
+    # Query Expansion (Lightweight) - skip for queries with 6 or more words
     expanded_query = req.message
-    try:
-        expansion_prompt = f"Rewrite this user query into a descriptive financial search query, keeping it under 15 words. Include synonyms if helpful. Only return the query itself. Query: '{req.message}'"
-        exp_model = genai.GenerativeModel("gemini-2.5-flash")
-        exp_resp = exp_model.generate_content(expansion_prompt)
-        if exp_resp.text:
-            expanded_query = exp_resp.text.strip()
-    except Exception as e:
-        print(f"Query expansion failed: {e}")
+    words = req.message.split()
+    if len(words) < 6:
+        try:
+            expansion_prompt = f"Rewrite this user query into a descriptive financial search query, keeping it under 15 words. Include synonyms if helpful. Only return the query itself. Query: '{req.message}'"
+            exp_model = genai.GenerativeModel("gemini-2.5-flash")
+            exp_resp = exp_model.generate_content(expansion_prompt)
+            if exp_resp.text:
+                expanded_query = exp_resp.text.strip()
+        except Exception as e:
+            print(f"Query expansion failed: {e}")
         
     # Embed the expanded query
     query_vector = embedding_model.encode([expanded_query])[0].tolist()
@@ -198,7 +217,19 @@ async def chat_endpoint(req: ChatRequest, user_id: str = Depends(get_current_use
     # 4. Generation Step
     context_block = "\n\n".join(context_texts) if context_texts else "No relevant context found."
     
-    user_prompt = f"User Question: {req.message}\n\nRetrieved Context:\n{context_block}"
+    # Format History Block
+    history_block = ""
+    if history_messages:
+        history_block = "Conversation History:\n"
+        for msg in history_messages[-10:]:
+            m = dict(msg)  # type: ignore[arg-type]
+            role_label = "User" if m["role"] == "user" else "Tutor"
+            history_block += f"{role_label}: {m['content']}\n"
+        history_block += "\n"
+        
+    new_conv_instruction = "This is the START of a new conversation, so you should greet the user warmly." if is_new_conversation else "This is a CONTINUATION of the conversation. DO NOT greet the user or say hello; answer the question directly."
+    
+    user_prompt = f"System Note: {new_conv_instruction}\n\n{history_block}Retrieved Context:\n{context_block}\n\nUser Question: {req.message}"
 
     try:
         model = genai.GenerativeModel(
@@ -213,7 +244,6 @@ async def chat_endpoint(req: ChatRequest, user_id: str = Depends(get_current_use
     chart_spec = None
     try:
         import re
-        import json
         chart_match = re.search(r'```json\s*(\{.*?"chart"\s*:.*?\})\s*```', assistant_reply, re.DOTALL | re.IGNORECASE)
         if chart_match:
             parsed = json.loads(chart_match.group(1))
@@ -223,38 +253,42 @@ async def chat_endpoint(req: ChatRequest, user_id: str = Depends(get_current_use
     except Exception:
         pass # Ignore parsing errors for charts
 
-    # Generate follow-up questions
-    follow_up_questions = []
-    try:
-        import json
-        follow_up_prompt = f"User asked: '{req.message}'. Assistant replied: '{assistant_reply}'. Generate 3 short, relevant follow-up questions a curious kid might ask next based on this. Return ONLY a JSON array of 3 strings."
-        fu_model = genai.GenerativeModel("gemini-2.5-flash", generation_config={"response_mime_type": "application/json"})
-        fu_resp = fu_model.generate_content(follow_up_prompt)
-        follow_up_questions = json.loads(fu_resp.text)
-        if not isinstance(follow_up_questions, list):
-            follow_up_questions = []
-    except Exception:
-        pass # fail silently
-
-    # 5. Save Assistant Message & Update Conversation
+    # 5. Concurrent Follow-ups and DB Saving
     sources_dict = [s.model_dump() for s in sources_used]
     
-    supabase_client.table("messages").insert({
-        "conversation_id": conversation_id,
-        "role": "assistant",
-        "content": assistant_reply,
-        "sources": sources_dict
-    }).execute()
+    async def generate_follow_ups():
+        try:
+            follow_up_prompt = f"User asked: '{req.message}'. Assistant replied: '{assistant_reply}'. Generate 3 short, relevant follow-up questions a curious kid might ask next based on this. Return ONLY a JSON array of 3 strings."
+            fu_model = genai.GenerativeModel("gemini-2.5-flash", generation_config={"response_mime_type": "application/json"})
+            fu_resp = await fu_model.generate_content_async(follow_up_prompt)
+            res = json.loads(fu_resp.text)
+            if isinstance(res, list):
+                return res
+        except Exception as e:
+            print(f"Follow-up generation failed: {e}")
+        return []
 
-    # Update conversation updated_at
-    # Note: supabase timestamp update requires UTC ISO format, but 'now()' function is easier if we use RPC,
-    # Alternatively, just updating a trivial field will trigger any DB update timestamp, but let's just let it be or update it explicitly.
-    # The default value is NOW(), but to update it:
-    import datetime
-    now_iso = datetime.datetime.now(datetime.timezone.utc).isoformat()
-    supabase_client.table("conversations").update({
-        "updated_at": now_iso
-    }).eq("id", conversation_id).execute()
+    async def save_to_db_and_update():
+        def sync_db_calls():
+            supabase_client.table("messages").insert({
+                "conversation_id": conversation_id,
+                "role": "assistant",
+                "content": assistant_reply,
+                "sources": sources_dict
+            }).execute()
+
+            now_iso = datetime.datetime.now(datetime.timezone.utc).isoformat()
+            supabase_client.table("conversations").update({
+                "updated_at": now_iso
+            }).eq("id", conversation_id).execute()
+            
+        await asyncio.to_thread(sync_db_calls)
+
+    # Run tasks in parallel to avoid sequential blocking
+    follow_up_questions, _ = await asyncio.gather(
+        generate_follow_ups(),
+        save_to_db_and_update()
+    )
 
     # 6. Return Response
     return ChatResponse(

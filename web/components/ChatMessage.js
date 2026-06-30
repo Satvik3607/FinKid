@@ -40,12 +40,31 @@ export default function ChatMessage({ role, content, sources, followUpQuestions,
     const utterance = new SpeechSynthesisUtterance(content);
     utterance.lang = 'en-US';
     
-    // Try to pick a calm/clear voice if available
+    // Select a voice that sounds friendlier/warmer
     const voices = window.speechSynthesis.getVoices();
-    const calmVoice = voices.find(v => v.lang.startsWith('en') && (v.name.includes('Google') || v.name.includes('Samantha') || v.name.includes('Daniel')));
-    if (calmVoice) {
-      utterance.voice = calmVoice;
+    const enVoices = voices.filter(v => v.lang.toLowerCase().startsWith('en'));
+    
+    // Search priorities for kid-friendly/natural/clear voices
+    // We prefer Edge Natural, Google Natural/Standard, macOS Samantha, or general friendly voices
+    const priorityKeywords = ['natural', 'google', 'samantha', 'zira', 'hazel', 'karen', 'daniel', 'david'];
+    let selectedVoice = null;
+    for (const kw of priorityKeywords) {
+      selectedVoice = enVoices.find(v => v.name.toLowerCase().includes(kw));
+      if (selectedVoice) break;
     }
+    
+    // Fallback to first English voice
+    if (!selectedVoice && enVoices.length > 0) {
+      selectedVoice = enVoices[0];
+    }
+    
+    if (selectedVoice) {
+      utterance.voice = selectedVoice;
+    }
+
+    // Slightly adjust pitch (warmer/clearer for kids) and rate (slightly slower for clarity)
+    utterance.pitch = 1.1; // Range: 0 to 2, Default: 1
+    utterance.rate = 0.9;  // Range: 0.1 to 10, Default: 1
 
     utterance.onstart = () => setIsPlaying(true);
     utterance.onend = () => setIsPlaying(false);

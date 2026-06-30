@@ -26,3 +26,6 @@ __pycache__/
 # System files
 .DS_Store
 Thumbs.db
+
+# Personal files
+CODE_WALKTHROUGH.md

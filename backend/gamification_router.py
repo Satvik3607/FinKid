@@ -1,6 +1,6 @@
 import os
 import json
-from typing import Optional, List, Dict
+from typing import Any, Dict, List, Optional, cast
 from fastapi import APIRouter, Depends, HTTPException
 from pydantic import BaseModel
 from supabase import create_client, Client
@@ -95,7 +95,7 @@ async def complete_lesson(req: CompleteLessonRequest, user_id: str = Depends(get
 
     # Check for course complete bonus
     all_prog_res = supabase_client.table("course_progress").select("lesson_id").eq("user_id", user_id).eq("course_id", req.course_id).execute()
-    completed_lessons_in_course = set([p["lesson_id"] for p in all_prog_res.data])
+    completed_lessons_in_course = set([cast(Dict[str, Any], p)["lesson_id"] for p in all_prog_res.data])
     course_lesson_ids = set([l["id"] for l in course["lessons"]])
     
     if course_lesson_ids.issubset(completed_lessons_in_course):
@@ -113,15 +113,15 @@ async def complete_lesson(req: CompleteLessonRequest, user_id: str = Depends(get
     
     is_new_stats = True
     if stats_res.data:
-        current_stats = stats_res.data[0]
+        current_stats = cast(Dict[str, Any], stats_res.data[0])
         is_new_stats = False
 
     new_total_points = current_stats["total_points"] + points_to_award
-    new_quiz_correct_count = current_stats.get("quiz_correct_count", 0) + quiz_correct_increment
-    earned_badges = current_stats.get("badges_earned", [])
+    new_quiz_correct_count = cast(int, current_stats.get("quiz_correct_count", 0)) + quiz_correct_increment
+    earned_badges = cast(list, current_stats.get("badges_earned", []))
 
     # Calculate level
-    new_level = current_stats["current_level"]
+    new_level: str = cast(str, current_stats["current_level"])
     level_changed = False
     
     sorted_levels = sorted(GAMIFICATION_DATA["levels"], key=lambda x: x["min_points"], reverse=True)
@@ -154,15 +154,16 @@ async def complete_lesson(req: CompleteLessonRequest, user_id: str = Depends(get
     if new_quiz_correct_count >= 10:
         award_badge("quiz_master")
 
-    completed_courses = set([p["course_id"] for p in completed_all_time])
+    completed_courses = set([cast(Dict[str, Any], p)["course_id"] for p in completed_all_time])
     total_courses = set([c["id"] for c in COURSES_DATA["courses"]])
     if total_courses.issubset(completed_courses):
         award_badge("all_rounder")
         
     days_set = set()
     for p in completed_all_time:
-        if "completed_at" in p:
-            dt = datetime.fromisoformat(p["completed_at"].replace('Z', '+00:00'))
+        d = cast(Dict[str, Any], p)
+        if "completed_at" in d:
+            dt = datetime.fromisoformat(d["completed_at"].replace('Z', '+00:00'))
             days_set.add(dt.strftime("%Y-%m-%d"))
     
     if len(days_set) >= 3:
